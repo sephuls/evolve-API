@@ -49,7 +49,7 @@ servers:
 paths:
   /course/create:
     post:
-      summary: ''
+      summary: Create aa a a a
       operationId: post-course-create
       responses:
         '200':
@@ -169,6 +169,8 @@ paths:
                 - title
                 - body
         description: ''
+      tags:
+        - Issue
 components:
   schemas:
     User:
