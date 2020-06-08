@@ -97,6 +97,50 @@ paths:
           in: query
           name: access_token
           required: true
+  /course/modify:
+    post:
+      summary: ''
+      operationId: post-course-modify
+      responses:
+        '200':
+          description: OK
+  /issue/create:
+    post:
+      summary: ''
+      operationId: post-issue-create
+      responses:
+        '200':
+          description: OK
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: access_token
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                title:
+                  type: string
+                body:
+                  type: string
+              required:
+                - user_id
+                - title
+                - body
+        description: ''
+  /issue/remove:
+    post:
+      summary: ''
+      operationId: post-issue-remove
+      responses:
+        '200':
+          description: OK
 components:
   schemas:
     User:
