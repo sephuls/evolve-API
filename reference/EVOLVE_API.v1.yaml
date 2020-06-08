@@ -5,51 +5,7 @@ info:
   description: Api description
 servers:
   - url: 'http://localhost:8000'
-paths:
-  /users/test:
-    get:
-      summary: lucky
-      tags:
-        - badkuip
-      responses: {}
-      operationId: get-testendpoint
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                test:
-                  type: string
-    parameters: []
-  /users/test2:
-    get:
-      summary: Your GET endpoint
-      tags:
-        - badkuip
-      responses: {}
-      operationId: get-users-test2
-  /test/test:
-    get:
-      summary: Your GET endpoint
-      tags: []
-      responses: {}
-      operationId: get-test-test
-    parameters: []
-  /users:
-    get:
-      summary: Your GET endpoint
-      tags:
-        - boomstam
-      responses: {}
-      operationId: get-users
+paths: {}
 components:
-  schemas:
-    User:
-      title: User
-      type: object
-      x-examples: {}
-      properties:
-        id:
-          type: string
+  schemas: {}
   securitySchemes: {}
