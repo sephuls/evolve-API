@@ -2,101 +2,67 @@ openapi: 3.0.0
 info:
   title: Evolve API
   version: '1.0'
-  description: Api description
+  description: |-
+    Evolve API docs. Voulez-vous evolve avec moi ce soir?
+
+
+    ### API connectie
+    Voor connectie met de API loop de volgende stappen door:
+
+    ```
+    $ git checkout develop
+    $ git pull develop
+    $ source environment.bash
+    $ pse_env
+    $ > cd issue_tracker
+    ```
+
+    > (Optioneel) update database:
+    > ```
+    > $ > python3 manage.py migrate.py
+    > ```
+
+    > (Optioneel) reïnitialiseer database:
+    > ```
+    > $ > python3 manage.py makemigrations.py
+    > $ > python3 manage.py migrate.py
+    > ```
+
+    ### Start webserver:
+    ```
+    $ > python3 manage.py runserver
+    ```
+
+    Connect met api-endpoints: `localhost:8000/api/endpoint`
+
+    Open admin-(db)pagina: `localhost:8000/admin` en log in met: `superuser@test.nl` en`test`.
+
+    <!-- theme: info -->
+
+    > Als er geen superuser aangemaakt is kun je dat zelf doen:
+    > ```
+    > $ > python3 manage.py createsuperuser
+    > ```
+  contact: {}
 servers:
   - url: 'http://localhost:8000'
 paths:
   /course/create:
     post:
-      summary: Create a new course
+      summary: ''
       operationId: post-course-create
       responses:
         '200':
           description: OK
       description: Create a new course
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: access_token
-          description: ''
-          required: true
+      parameters: []
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              properties:
-                user_id:
-                  type: integer
-                course_id:
-                  type: string
-                course_name:
-                  type: string
-              required:
-                - user_id
-                - course_id
-                - course_name
-            examples: {}
-        description: 'Only users with authorization level > 1 can create a new course.'
-      tags:
-        - Course
-  /course/remove:
-    post:
-      summary: Remove a course
-      operationId: post-course-remove
-      responses:
-        '200':
-          description: OK
-      tags:
-        - Course
-      description: Remove an existing course.
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: access_token
-          required: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                user_id:
-                  type: integer
-                course_id:
-                  type: string
-              required:
-                - user_id
-                - course_id
-  /course/issues:
-    get:
-      summary: Retrieve all issues linked to a course
-      tags:
-        - Course
-      responses: {}
-      operationId: get-course-issues
-      description: Returns all issues linked to a certain course.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                course_id:
-                  type: string
-                user_id:
-                  type: integer
-              required:
-                - course_id
-                - user_id
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: access_token
-          required: true
+              properties: {}
+        description: ''
 components:
   schemas:
     User:
@@ -117,15 +83,4 @@ components:
           format: email
         uva_id:
           type: integer
-      description: ''
-    Course:
-      title: Course
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: string
-        status:
-          type: string
   securitySchemes: {}
