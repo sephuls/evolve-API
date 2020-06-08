@@ -8,20 +8,95 @@ servers:
 paths:
   /course/create:
     post:
-      summary: ''
+      summary: Create a new course
       operationId: post-course-create
       responses:
         '200':
           description: OK
       description: Create a new course
-      parameters: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: access_token
+          description: ''
+          required: true
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              properties: {}
-        description: ''
+              properties:
+                user_id:
+                  type: integer
+                course_id:
+                  type: string
+                course_name:
+                  type: string
+              required:
+                - user_id
+                - course_id
+                - course_name
+            examples: {}
+        description: 'Only users with authorization level > 1 can create a new course.'
+      tags:
+        - Course
+  /course/remove:
+    post:
+      summary: Remove a course
+      operationId: post-course-remove
+      responses:
+        '200':
+          description: OK
+      tags:
+        - Course
+      description: Remove an existing course.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: access_token
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                course_id:
+                  type: string
+              required:
+                - user_id
+                - course_id
+  /course/issues:
+    get:
+      summary: Retrieve all issues linked to a course
+      tags:
+        - Course
+      responses: {}
+      operationId: get-course-issues
+      description: Returns all issues linked to a certain course.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                course_id:
+                  type: string
+                user_id:
+                  type: integer
+              required:
+                - course_id
+                - user_id
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: access_token
+          required: true
 components:
   schemas:
     User:
@@ -42,4 +117,15 @@ components:
           format: email
         uva_id:
           type: integer
+      description: ''
+    Course:
+      title: Course
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+        status:
+          type: string
   securitySchemes: {}
