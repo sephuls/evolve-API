@@ -34,6 +34,12 @@ paths:
       responses: {}
       operationId: get-test-test
     parameters: []
+  /users:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-users
 components:
   schemas:
     User:
