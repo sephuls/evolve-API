@@ -33,6 +33,7 @@ paths:
       tags: []
       responses: {}
       operationId: get-test-test
+    parameters: []
 components:
   schemas:
     User:
