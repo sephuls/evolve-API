@@ -9,7 +9,8 @@ paths:
   /users/test:
     get:
       summary: lucky
-      tags: []
+      tags:
+        - badkuip
       responses: {}
       operationId: get-testendpoint
       requestBody:
@@ -24,7 +25,8 @@ paths:
   /users/test2:
     get:
       summary: Your GET endpoint
-      tags: []
+      tags:
+        - badkuip
       responses: {}
       operationId: get-users-test2
   /test/test:
@@ -37,7 +39,8 @@ paths:
   /users:
     get:
       summary: Your GET endpoint
-      tags: []
+      tags:
+        - boomstam
       responses: {}
       operationId: get-users
 components:
