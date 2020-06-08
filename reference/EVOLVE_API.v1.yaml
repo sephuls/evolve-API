@@ -5,7 +5,41 @@ info:
   description: Api description
 servers:
   - url: 'http://localhost:8000'
-paths: {}
+paths:
+  /course/create:
+    post:
+      summary: ''
+      operationId: post-course-create
+      responses:
+        '200':
+          description: OK
+      description: Create a new course
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+        description: ''
 components:
-  schemas: {}
+  schemas:
+    User:
+      title: User
+      type: object
+      properties:
+        id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        password:
+          type: string
+          format: password
+        email:
+          type: string
+          format: email
+        uva_id:
+          type: integer
   securitySchemes: {}
