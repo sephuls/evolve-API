@@ -1,11 +1,12 @@
 openapi: 3.0.0
 info:
-  title: API naam
+  title: Evolve API
   version: '1.0'
+  description: Api description
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'http://localhost:8000'
 paths:
-  /testendpoint:
+  /users/test:
     get:
       summary: lucky
       tags: []
@@ -19,5 +20,26 @@ paths:
               properties:
                 test:
                   type: string
+    parameters: []
+  /users/test2:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-users-test2
+  /test/test:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-test-test
 components:
-  schemas: {}
+  schemas:
+    User:
+      title: User
+      type: object
+      x-examples: {}
+      properties:
+        id:
+          type: string
+  securitySchemes: {}
