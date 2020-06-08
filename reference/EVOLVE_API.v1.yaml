@@ -169,15 +169,6 @@ paths:
                 - title
                 - body
         description: ''
-  /issue/remove:
-    post:
-      summary: ''
-      operationId: post-issue-remove
-      responses:
-        '200':
-          description: OK
-              properties: {}
-        description: ''
 components:
   schemas:
     User:
