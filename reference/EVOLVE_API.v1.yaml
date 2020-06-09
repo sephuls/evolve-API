@@ -196,7 +196,6 @@ paths:
         description: 'POST data:'
       tags:
         - User
-        - Course
   /course/create:
     post:
       summary: Create aa a a a
