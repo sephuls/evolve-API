@@ -194,6 +194,9 @@ paths:
                   last_name: de Jong
                   uva_id: 12345678
         description: 'POST data:'
+      tags:
+        - User
+        - Course
   /course/create:
     post:
       summary: Create aa a a a
