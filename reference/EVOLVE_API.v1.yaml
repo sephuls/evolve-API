@@ -4,6 +4,7 @@ info:
   version: '1.0'
   description: |-
     Evolve API docs. Voulez-vous evolve avec moi ce soir?
+    Voor front-end implementatiedetails zie de "Front end" pagina onder "Implementatie".
 
 
     ### API connectie
@@ -24,7 +25,7 @@ info:
 
     > (Optioneel) reïnitialiseer database:
     > ```
-    > $ > python3 manage.py makemigrations.py
+    > $ > rm db.sqlite3
     > $ > python3 manage.py migrate.py
     > ```
 
@@ -368,6 +369,7 @@ paths:
           description: OK
       tags:
         - User
+      parameters: []
 components:
   schemas:
     User:
