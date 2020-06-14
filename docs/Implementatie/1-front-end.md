@@ -3,9 +3,19 @@ tags: [Implementatie details]
 ---
 
 # Front-end
+**Rollen**: leerlingen, TA's, Docenten OC, administrator.
+Er is momenteel geen manier om d.m.v. de API een TA, docent of OC-lid te definieren. Mogelijk gaat dat gedaan worden met (bijvoorbeeld) `/user/{user_id}/promote` waarbij een user met eenzelfde of hoger authenticatie niveau deze user kan 'promoveren'.
+
+**Aanpassingen**: Graag mogelijke toevoegingen/wijzigingen in de backend discord zetten.
+
+### Algemene pagina's
 
 **Ready-to-go**: 
-Zie de Ready-to-go pagina voor de beschikbaarheid van de api-calls. Toont beschikbaarheid in de backend en documentatiestatus. Graag mogelijke toevoegingen/wijzigingen in de backend discord zetten.
+Zie de "Ready-to-go" pagina voor de beschikbaarheid van de api-calls. Toont beschikbaarheid in de backend en documentatiestatus. Graag mogelijke toevoegingen/wijzigingen in de backend discord zetten.
+
+**Error codes**:
+Zie de "Error codes" pagina voor info over alle huidige error codes.
+
 
 ### Docs tab
 
@@ -25,7 +35,9 @@ POST data. Wordt verwacht in JSON formaat.
 Alle mogelijke responses en errors. In JSON formaat.
 
 ### Try-it tab
-Gebruik het try it element (te zien op een api-call pagina) om een request te sturen naar de testserver.
+Gebruik het try it element (te zien op een api-call pagina) om een request te sturen. Klik op de eerste url-deel om van server (lokaal, test) te switchen.
+
+WARNING: stoplight kan niet overweg met error responses (http code /= 200), dus deze kunnen alleen gesimuleerd worden in de browser of met iets als Postman.
 
 **Query**:
 GET data.

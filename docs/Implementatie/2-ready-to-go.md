@@ -22,11 +22,13 @@ tags: [Implementatie details]
 | -------- | ------------------------- | ----------------- | :---: | :-: |
 | `GET`    | /issue/{issue_id}         | Get issue details |       |     |
 | `GET`    | /issue/{issue_id}/votes   | Get issue votes   |   ~   |     |
-| `POST`   | /issue/new                | Create issue      |   ✓   |     |
+| `POST`   | /issue/new                | Create issue      |   ✓   |  ✓  |
 | `POST`   | /issue/{issue_id}/modify  | Modify issue      |       |     |
 | `POST`   | /issue/{issue_id}/vote    | Up/downvote       |   ~   |     |
-| `POST`   | /issue/{issue_id}/resolve | Resolve issue     |   ✓   |     |
-| `POST`   | /issue/{issue_id}/remove  | Remove issue      |   ✓   |     |
+| `POST`   | /issue/{issue_id}/resolve | Resolve issue     |   ✓   |  ✓  |
+| `POST`   | /issue/{issue_id}/remove  | Remove issue      |   ✓   |  ✓  |
+
+NOTE: momenteel is er nog geen ondersteuning voor labels.
 
 <!-- title: User api-calls -->
 

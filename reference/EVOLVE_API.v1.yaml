@@ -4,6 +4,7 @@ info:
   version: '1.0'
   description: |-
     Evolve API docs. Voulez-vous evolve avec moi ce soir?
+
     Voor front-end implementatiedetails zie de "Front end" pagina onder "Implementatie".
 
 
@@ -46,7 +47,10 @@ info:
     > ```
   contact: {}
 servers:
-  - url: 'http://localhost:8000'
+  - url: 'http://localhost:8000/api'
+    description: Lokaal
+  - url: 'http://35.158.139.130:8000/api/'
+    description: Testserver
 paths:
   /user/new/:
     parameters: []
@@ -171,7 +175,10 @@ paths:
                 Voorbeeld:
                   value:
                     error: 1
-      description: Maak een nieuwe user aan. Returnt een `access_token` en een `user_id`.
+      description: |-
+        Maak een nieuwe user aan. Returnt een `access_token` en een `user_id`.
+
+        Verificatie is nog niet geïmplementeerd.
       parameters:
         - schema:
             type: string
@@ -384,7 +391,7 @@ paths:
           required: true
       tags:
         - User
-  '/user/{user_id}/issues':
+  '/user/{user_id}/issues/':
     parameters:
       - schema:
           type: integer
@@ -512,7 +519,10 @@ paths:
                 Voorbeeld:
                   value:
                     error: 1
-      description: "Haalt issue_id's van de alle issues van de user op."
+      description: |-
+        Haalt issue_id's van de alle issues van de user op.
+
+        Toegestaan door: de user zelf, OC.
       parameters:
         - schema:
             type: string
@@ -522,7 +532,7 @@ paths:
           required: true
       tags:
         - User
-  /course/all:
+  /course/all/:
     get:
       summary: Get all courses
       operationId: get-course-all
@@ -656,7 +666,8 @@ paths:
           required: true
       tags:
         - Course
-  /course/new:
+    parameters: []
+  /course/new/:
     post:
       summary: Create course
       operationId: post-course-new
@@ -779,6 +790,12 @@ paths:
           in: query
           name: access_token
           required: true
+        - schema:
+            type: string
+            default: application/json
+          in: header
+          name: Content-Type
+          required: true
       tags:
         - Course
       requestBody:
@@ -798,7 +815,438 @@ paths:
                 - code
                 - name
         description: 'POST data, in JSON formaat.'
-  '/course/{code}':
+    parameters: []
+  '/issue/{issue_id}/remove/':
+    parameters:
+      - schema:
+          type: integer
+          example: 123
+        name: issue_id
+        in: path
+        required: true
+    post:
+      summary: Remove issue
+      operationId: post-issue-remove
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
+                    type: 'null'
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response: null
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+      description: |-
+        Verwijdert (soft) een issue.
+
+        Toegestaan door: docenten, OC.
+      parameters:
+        - schema:
+            type: string
+            example: ce527a508a0cf05f3f28f2e85d7c060bcbc064a5
+          in: query
+          name: access_token
+          required: true
+      tags:
+        - User
+  '/issue/{issue_id}/resolve/':
+    parameters:
+      - schema:
+          type: integer
+          example: 123
+        name: issue_id
+        in: path
+        required: true
+    post:
+      summary: Resolve issue
+      operationId: post-issue-resolve
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
+                    type: 'null'
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response: null
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+      description: |-
+        Resolved een issue.
+
+        Toegestaan door: TA's, docenten, OC.
+      parameters:
+        - schema:
+            type: string
+            example: ce527a508a0cf05f3f28f2e85d7c060bcbc064a5
+          in: query
+          name: access_token
+          required: true
+      tags:
+        - User
+  /issue/new/:
+    post:
+      summary: Create issue
+      operationId: post-issue-new
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
+                    type: object
+                    required:
+                      - issue_id
+                    properties:
+                      issue_id:
+                        type: integer
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response: null
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+      description: Maak een nieuwe issue aan.
+      parameters:
+        - schema:
+            type: string
+            example: ce527a508a0cf05f3f28f2e85d7c060bcbc064a5
+          in: query
+          name: access_token
+          required: true
+        - schema:
+            type: string
+            default: application/json
+          in: header
+          name: Content-Type
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                course_code:
+                  type: string
+                  description: course id / vakcode
+                  example: abc123
+                title:
+                  type: string
+                  example: "Inleiding API's maken"
+                body:
+                  type: string
+                  example: Stap 1. maak een wiki
+              required:
+                - course_code
+                - title
+                - body
+            examples:
+              Voorbeeld:
+                value:
+                  course_code: abc123
+                  title: HELPPP
+                  body:
+                    - '░░░░░░░░▄▄▄▀▀▀▄▄███▄░░░░░░░░░░░░░░ '
+                    - '░░░░░▄▀▀░░░░░░░▐░▀██▌░░░░░░░░░░░░░ '
+                    - '░░░▄▀░░░░▄▄███░▌▀▀░▀█░░░░░░░░░░░░░ '
+                    - '░░▄█░░▄▀▀▒▒▒▒▒▄▐░░░░█▌░░░░░░░░░░░░ '
+                    - '░▐█▀▄▀▄▄▄▄▀▀▀▀▌░░░░░▐█▄░░░░░░░░░░░ '
+                    - '░▌▄▄▀▀░░░░░░░░▌░░░░▄███████▄░░░░░░ '
+                    - '░░░░░░░░░░░░░▐░░░░▐███████████▄░░░ '
+                    - '░░░░░le░░░░░░░▐░░░░▐█████████████▄ '
+                    - '░░░░toucan░░░░░░▀▄░░░▐█████████████▄ '
+                    - '░░░░░░has░░░░░░░░▀▄▄███████████████ '
+                    - '░░░░░arrived░░░░░░░░░░░░█▀██████░░ '
+        description: 'POST data, in JSON formaat.'
+      tags:
+        - Issue
+    parameters: []
+  '/course/{code}/':
     get:
       summary: Get course details
       operationId: get-course-details
@@ -941,7 +1389,7 @@ paths:
         in: path
         description: ''
         required: true
-  '/course/{code}/remove':
+  '/course/{code}/remove/':
     post:
       summary: Remove course
       operationId: post-course-remove
@@ -1072,7 +1520,7 @@ paths:
         in: path
         description: ''
         required: true
-  '/course/{code}/issues':
+  '/course/{code}/issues/':
     get:
       summary: Get course issues
       operationId: get-course-issues
@@ -1211,7 +1659,7 @@ paths:
         in: path
         description: ''
         required: true
-  '/user/{user_id}/remove':
+  '/user/{user_id}/remove/':
     parameters:
       - schema:
           type: integer
