@@ -8,11 +8,12 @@ tags: [Implementatie details]
 
 | Method   | URL                        | Name              | Ready | Documented |
 | -------- | -------------------------- | ----------------- | :---: | :-: |
-| `GET`    | /course/all                | Get all courses   |   ✓   |     |
-| `GET`    | /course/{code}/issues | Get course issues |   ✓   |     |
-| `POST`   | /course/new                | Create course        |   ✓   |     |
-| `POST`   | /course/{code}/remove | Remove course     |   ✓   |     |
-| `POST`   | /course/{code}/add_faculty | Remove course     |   ~¹   |     |
+| `GET`    | /course/all                | Get all courses   |   ✓   |  ✓  |
+| `GET`    | /course/{code} | Get course details |   ✓   |   ✓  |
+| `GET`    | /course/{code}/issues | Get course issues |   ✓   |  ✓  |
+| `POST`   | /course/new                | Create course        |   ✓   |  ✓  |
+| `POST`   | /course/{code}/remove | Remove course     |   ✓   |  ✓   |
+| `POST`   | /course/{code}/add_faculty | Add faculty     |   ~¹   |     |
 
 
 <!-- title: Issue api-calls -->
@@ -31,13 +32,13 @@ tags: [Implementatie details]
 
 | Method   | URL                    | Name             | Ready | Documented |
 | -------- | ---------------------- | ---------------- | :---: | :-: |
-| `GET`    | /user/{user_id}        | Get user details |   ✓   |     |
-| `GET`    | /user/{user_id}/issues | Get user issues  |   ✓   |     |
-| `POST`   | /user/new              | Create user      |   ✓   |  ~  |
-| `POST`   | /user/login            | Login            |   ✓   |     |
+| `GET`    | /user/{user_id}        | Get user details |   ✓   |  ✓  |
+| `GET`    | /user/{user_id}/issues | Get user issues  |   ✓   |  ✓  |
+| `POST`   | /user/new              | Create user      |   ✓   |  ✓  |
+| `POST`   | /user/login            | Login            |   ✓   |  ✓  |
 | `POST`   | /user/forgot_password  | Forgot password  |       |     |
 | `POST`   | /user/{user_id}/modify | Modify user      |       |     |
 | `POST`   | /user/{user_id}/verify | Verify user      |       |     |
-| `POST`   | /user/{user_id}/remove | Remove user      |   ✓   |     |
+| `POST`   | /user/{user_id}/remove | Remove user      |   ✓   |  ✓  |
 
 ¹= zal waarschijnlijk veranderd worden naar /modify want te specifiek.

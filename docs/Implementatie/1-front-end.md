@@ -5,7 +5,7 @@ tags: [Implementatie details]
 # Front-end
 
 **Ready-to-go**: 
-Zie de Ready-to-go pagina voor de beschikbaarheid van de api-calls. Toont beschikbaarheid in de backend en documentatiestatus.
+Zie de Ready-to-go pagina voor de beschikbaarheid van de api-calls. Toont beschikbaarheid in de backend en documentatiestatus. Graag mogelijke toevoegingen/wijzigingen in de backend discord zetten.
 
 ### Docs tab
 
