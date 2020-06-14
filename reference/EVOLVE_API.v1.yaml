@@ -945,7 +945,7 @@ paths:
           name: access_token
           required: true
       tags:
-        - User
+        - Issue
   '/issue/{issue_id}/resolve/':
     parameters:
       - schema:
@@ -1075,7 +1075,7 @@ paths:
           name: access_token
           required: true
       tags:
-        - User
+        - Issue
   /issue/new/:
     post:
       summary: Create issue
