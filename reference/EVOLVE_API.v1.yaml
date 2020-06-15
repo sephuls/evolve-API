@@ -1951,6 +1951,92 @@ paths:
         description: 'POST data, in JSON formaat.'
       tags:
         - User
+  '/issue/{issue_id}':
+    parameters:
+      - schema:
+          type: string
+        name: issue_id
+        in: path
+        required: true
+    get:
+      summary: Get issue details
+      tags:
+        - Issue
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                  response:
+                    type: object
+                    required:
+                      - issue_id
+                      - course_code
+                      - user_id
+                      - title
+                      - body
+                      - status
+                      - date
+                      - upvoters
+                      - downvoters
+                    properties:
+                      issue_id:
+                        type: integer
+                      course_code:
+                        type: string
+                      user_id:
+                        type: integer
+                      title:
+                        type: string
+                      body:
+                        type: string
+                      status:
+                        type: integer
+                      date:
+                        type: string
+                      upvoters:
+                        type: integer
+                      downvoters:
+                        type: integer
+                required:
+                  - error
+                  - response
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                required:
+                  - error
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                required:
+                  - error
+      operationId: get-issue-issue_id
+      description: Haalt issue info op. Verwijderde issues zijn niet zichtbaar.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: access_token
+          required: true
 components:
   schemas:
     User:
