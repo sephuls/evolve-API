@@ -47,10 +47,10 @@ info:
     > ```
   contact: {}
 servers:
-  - url: 'http://localhost:8000/api'
-    description: Lokaal
   - url: 'http://35.158.139.130:8000/api/'
     description: Testserver
+  - url: 'http://localhost:8000/api'
+    description: Lokaal
 paths:
   /user/new/:
     parameters: []
