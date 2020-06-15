@@ -47,7 +47,7 @@ info:
     > ```
   contact: {}
 servers:
-  - url: 'http://35.158.139.130:8000/api/'
+  - url: 'http://35.156.237.48:8000/api/'
     description: Testserver
   - url: 'http://localhost:8000/api'
     description: Lokaal
@@ -182,7 +182,8 @@ paths:
       parameters:
         - schema:
             type: string
-            default: application/json
+            default: text/plain
+            example: application/json
           in: header
           name: Content-Type
           description: ''
@@ -792,7 +793,8 @@ paths:
           required: true
         - schema:
             type: string
-            default: application/json
+            default: text/plain
+            example: application/json
           in: header
           name: Content-Type
           required: true
@@ -1201,7 +1203,8 @@ paths:
           required: true
         - schema:
             type: string
-            default: application/json
+            default: text/plain
+            example: application/json
           in: header
           name: Content-Type
           required: true
@@ -1917,7 +1920,8 @@ paths:
       parameters:
         - schema:
             type: string
-            default: application/json
+            default: text/plain
+            example: application/json
           in: header
           name: Content-Type
           description: ''
@@ -1951,10 +1955,11 @@ paths:
         description: 'POST data, in JSON formaat.'
       tags:
         - User
-  '/issue/{issue_id}':
+  '/issue/{issue_id}/':
     parameters:
       - schema:
-          type: string
+          type: integer
+          example: 123
         name: issue_id
         in: path
         required: true
@@ -2002,8 +2007,10 @@ paths:
                         type: string
                       upvoters:
                         type: integer
+                        description: aantal upvotes
                       downvoters:
                         type: integer
+                        description: aantal downvotes
                 required:
                   - error
                   - response
@@ -2030,7 +2037,13 @@ paths:
                 required:
                   - error
       operationId: get-issue-issue_id
-      description: Haalt issue info op. Verwijderde issues zijn niet zichtbaar.
+      description: |-
+        NOTE: staat nog niet op de server.
+
+        Haalt issue info op. Verwijderde issues zijn niet zichtbaar.
+
+        - Status 0: open
+        - Status 1: resolved
       parameters:
         - schema:
             type: string
