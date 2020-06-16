@@ -1523,6 +1523,174 @@ paths:
         in: path
         description: ''
         required: true
+  '/course/{code}/modify/':
+    post:
+      summary: Modify course
+      operationId: post-course-modify
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
+                    type: 'null'
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response: null
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+      description: |-
+        Wijzig een course. Nieuwe docenten/TA's kunnen toegevoegd, verwijderd of overschreven worden, respectievelijk de `method`: "add", "remove" en "overwrite".
+
+        Toegestaan door: docenten, OC.
+      parameters:
+        - schema:
+            type: string
+            example: ce527a508a0cf05f3f28f2e85d7c060bcbc064a5
+          in: query
+          name: access_token
+          required: true
+        - schema:
+            type: string
+            example: application/json
+            default: text/plain
+          in: header
+          name: Content-Type
+      tags:
+        - Course
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                teachers:
+                  type: object
+                  properties:
+                    method:
+                      type: string
+                      description: 'add, remove of overwrite'
+                    user_ids:
+                      type: array
+                      items:
+                        type: integer
+                  required:
+                    - method
+                    - user_ids
+            examples:
+              Voorbeeld:
+                value:
+                  name: Nieuwe course naam
+                  faculty:
+                    method: overwrite
+                    user_ids:
+                      - 1
+                      - 57
+                      - 12
+    parameters:
+      - schema:
+          type: string
+          example: abc123
+        name: code
+        in: path
+        description: ''
+        required: true
   '/course/{code}/issues/':
     get:
       summary: Get course issues
