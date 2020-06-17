@@ -424,7 +424,29 @@ paths:
                       issues:
                         type: array
                         items:
-                          type: integer
+                          type: object
+                          properties:
+                            issue_id:
+                              type: integer
+                            course_code:
+                              type: string
+                            user_id:
+                              type: integer
+                            title:
+                              type: string
+                            body:
+                              type: string
+                            status:
+                              type: integer
+                              description: '0:public, 1: removed, 2:resolved'
+                            date:
+                              type: string
+                            upvotes:
+                              type: integer
+                              description: aantal upvotes
+                            downvotes:
+                              type: integer
+                              description: aantal downvotes
                 required:
                   - error
                   - response
@@ -434,9 +456,24 @@ paths:
                     error: 0
                     response:
                       issues:
-                        - 72
-                        - 89
-                        - 21
+                        - issue_id: 1
+                          course_code: course1
+                          user_id: 1
+                          title: Issue1
+                          body: body1
+                          status: 0
+                          date: '2020-06-04T20:59:22.859Z'
+                          upvotes: 1
+                          downvotes: 1
+                        - issue_id: 2
+                          course_code: course1
+                          user_id: 2
+                          title: Issue2
+                          body: body2
+                          status: 2
+                          date: '2021-06-04T20:59:22.859Z'
+                          upvotes: 2
+                          downvotes: 1
             application/xml:
               schema:
                 type: object
@@ -521,7 +558,7 @@ paths:
                   value:
                     error: 1
       description: |-
-        Haalt issue_id's van de alle issues van de user op.
+        Haalt alle issues van de user op. Toont ook verwijderde issues.
 
         Toegestaan door: de user zelf, OC.
       parameters:
@@ -1716,7 +1753,29 @@ paths:
                       issues:
                         type: array
                         items:
-                          type: integer
+                          type: object
+                          properties:
+                            issue_id:
+                              type: integer
+                            course_code:
+                              type: string
+                            user_id:
+                              type: integer
+                            title:
+                              type: string
+                            body:
+                              type: string
+                            status:
+                              type: integer
+                              description: '0:public, 2:resolved'
+                            date:
+                              type: string
+                            upvotes:
+                              type: integer
+                              description: aantal upvotes
+                            downvotes:
+                              type: integer
+                              description: aantal downvotes
                 required:
                   - error
                   - response
@@ -1726,9 +1785,24 @@ paths:
                     error: 0
                     response:
                       issues:
-                        - 72
-                        - 89
-                        - 21
+                        - issue_id: 1
+                          course_code: course1
+                          user_id: 1
+                          title: Issue1
+                          body: body1
+                          status: 0
+                          date: '2020-06-04T20:59:22.859Z'
+                          upvotes: 1
+                          downvotes: 1
+                        - issue_id: 2
+                          course_code: course1
+                          user_id: 2
+                          title: Issue2
+                          body: body2
+                          status: 2
+                          date: '2021-06-04T20:59:22.859Z'
+                          upvotes: 2
+                          downvotes: 1
             application/xml:
               schema:
                 type: object
@@ -1812,7 +1886,7 @@ paths:
                 Voorbeeld:
                   value:
                     error: 1
-      description: Haalt alle issues van een course op.
+      description: Haalt alle issues van een course op. Verwijderde issues zijn niet zichtbaar.
       parameters:
         - schema:
             type: string
@@ -2477,6 +2551,7 @@ paths:
                         type: string
                       status:
                         type: integer
+                        description: '0:public, 2:resolved'
                       date:
                         type: string
                       upvoters:
@@ -2511,13 +2586,7 @@ paths:
                 required:
                   - error
       operationId: get-issue-issue_id
-      description: |-
-        NOTE: staat nog niet op de server.
-
-        Haalt issue info op. Verwijderde issues zijn niet zichtbaar.
-
-        - Status 0: open
-        - Status 1: resolved
+      description: Haalt issue info op. Verwijderde issues zijn niet zichtbaar.
       parameters:
         - schema:
             type: string
