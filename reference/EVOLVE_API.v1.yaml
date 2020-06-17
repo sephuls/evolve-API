@@ -2218,6 +2218,86 @@ paths:
           in: query
           name: access_token
           required: true
+  '/issue/{issue_id}/modify':
+    parameters:
+      - schema:
+          type: string
+        name: issue_id
+        in: path
+        required: true
+    post:
+      summary: Modify an issue
+      tags:
+        - Issue
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+      operationId: post-issue-issue_id-modify
+      description: |-
+        Modification call meant for editing the title (string), body (string), or course_code (string) of an Issue object.
+
+        For editing of up- or downvoters (integer[]) use designated call: /issue/{issue-id}/vote/.
+
+        For editing of issue status use designated calls: /issue/{issue-id}/resolve/ or /issue/{issue-id}/remove/.
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: access_token
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                issue_id:
+                  type: integer
+                title:
+                  type: string
+                body:
+                  type: string
+                course_code:
+                  type: string
+              required:
+                - user_id
+                - issue_id
 components:
   schemas:
     User:
