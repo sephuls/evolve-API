@@ -2563,6 +2563,20 @@ paths:
                 required:
                   - error
                   - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response:
+                      issue_id: 1
+                      course_code: course1
+                      user_id: 1
+                      title: Issue1
+                      body: body1
+                      status: 0
+                      date: '2020-06-04T20:59:22.859Z'
+                      upvotes: 1
+                      downvotes: 1
         '400':
           description: Bad Request
           content:
@@ -2614,6 +2628,28 @@ paths:
                 properties:
                   error:
                     type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
+                    type: 'null'
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response: null
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
         '400':
           description: Bad Request
           content:
@@ -2623,6 +2659,15 @@ paths:
                 properties:
                   error:
                     type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
         '403':
           description: Forbidden
           content:
@@ -2632,6 +2677,15 @@ paths:
                 properties:
                   error:
                     type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
         '404':
           description: Not Found
           content:
@@ -2641,13 +2695,42 @@ paths:
                 properties:
                   error:
                     type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
       operationId: post-issue-issue_id-modify
       description: |-
-        Modification call meant for editing the title (string), body (string), or course_code (string) of an Issue object.
+        Wijzig een issue.
 
-        For editing of up- or downvoters (integer[]) use designated call: /issue/{issue-id}/vote/.
+        Voor het wijzigen van up- of downvotes gebruik: /issue/{issue-id}/vote/.
 
-        For editing of issue status use designated calls: /issue/{issue-id}/resolve/ or /issue/{issue-id}/remove/.
+        Voor het wijzigen van de status van een issue gebruik: /issue/{issue-id}/resolve/ of /issue/{issue-id}/remove/.
       parameters:
         - schema:
             type: integer
@@ -2660,19 +2743,12 @@ paths:
             schema:
               type: object
               properties:
-                user_id:
-                  type: integer
-                issue_id:
-                  type: integer
                 title:
                   type: string
                 body:
                   type: string
                 course_code:
                   type: string
-              required:
-                - user_id
-                - issue_id
 components:
   schemas:
     User:
