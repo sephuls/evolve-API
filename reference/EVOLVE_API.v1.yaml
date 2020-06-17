@@ -2218,7 +2218,7 @@ paths:
           in: query
           name: access_token
           required: true
-  '/issue/{issue_id}/modify':
+  '/issue/{issue_id}/modify/':
     parameters:
       - schema:
           type: string
