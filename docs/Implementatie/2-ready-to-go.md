@@ -13,7 +13,7 @@ tags: [Implementatie details]
 | `GET`    | /course/{code}/issues | Get course issues |   ✓   |  ✓  |
 | `POST`   | /course/new                | Create course        |   ✓   |  ✓  |
 | `POST`   | /course/{code}/remove | Remove course     |   ✓   |  ✓   |
-| `POST`   | /course/{code}/add_faculty | Add faculty     |   ~¹   |     |
+| `POST`   | /course/{code}/modify | Modify course     |   ✓   |  ✓  |
 
 
 <!-- title: Issue api-calls -->
@@ -39,8 +39,6 @@ NOTE: momenteel is er nog geen ondersteuning voor labels.
 | `POST`   | /user/new              | Create user      |   ✓   |  ✓  |
 | `POST`   | /user/login            | Login            |   ✓   |  ✓  |
 | `POST`   | /user/forgot_password  | Forgot password  |       |     |
-| `POST`   | /user/{user_id}/modify | Modify user      |       |     |
+| `POST`   | /user/{user_id}/modify | Modify user      |   ✓   |  ✓  |
 | `POST`   | /user/{user_id}/verify | Verify user      |       |     |
 | `POST`   | /user/{user_id}/remove | Remove user      |   ✓   |  ✓  |
-
-¹= zal waarschijnlijk veranderd worden naar /modify want te specifiek.
