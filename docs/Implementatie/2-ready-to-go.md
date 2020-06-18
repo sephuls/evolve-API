@@ -37,6 +37,7 @@ NOTE: momenteel is er nog geen ondersteuning voor labels.
 | `GET`    | /user/all              | Get users      |   ✓   |     |
 | `GET`    | /user/{user_id}        | Get user details |   ✓   |  ✓  |
 | `GET`    | /user/{user_id}/issues | Get user issues  |   ✓   |  ✓  |
+| `GET`    | /user/{user_id}/courses | Get user courses  |      |    |
 | `GET`    | /user/{user_id}/comments | Get user comments  |   ✓   |  ✓   |
 | `POST`   | /user/new              | Create user      |   ✓   |  ✓  |
 | `POST`   | /user/login            | Login            |   ✓   |  ✓  |

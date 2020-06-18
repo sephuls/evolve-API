@@ -2,9 +2,30 @@
 tags: [Implementatie details]
 ---
 
-# Error codes
+# Constanten
+
+<!-- title: Roles -->
+
+| Code | Error |
+| :--: | ----- |
+| 1    | Leerling |
+| 2    | TA |
+| 3    | Docent |
+| 4    | OC |
+| -    | Administrator |
+
+
+<!-- title: Issue/course stati -->
+
+| Code | Error |
+| :--: | ----- |
+| 0    | Public/open |
+| 1    | Removed |
+| 2    | Resolved |
 
 Niet definitief, wordt uitgebreid met behoud van eerdere errorcodes.
+
+<!-- title: Error codes -->
 
 | Code | Error |
 | :--: | ----- |
@@ -22,3 +43,5 @@ Niet definitief, wordt uitgebreid met behoud van eerdere errorcodes.
 | 12   | Course was already removed |
 | 13   | Issue was already removed |
 | 14   | Issue was already resolved |
+| 15   | Self promotion not allowed |
+| 16   | Use other call |
