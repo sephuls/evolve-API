@@ -235,6 +235,169 @@ paths:
         description: 'POST data, in JSON formaat.'
       tags:
         - User
+  /comment/new/:
+    parameters: []
+    post:
+      summary: Create a new comment
+      operationId: post-comment-new
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
+                    type: object
+                    required:
+                      - comment_id
+                    properties:
+                      comment_id:
+                        type: integer
+                        example: 0
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response:
+                      access_token: c7a19cf986eeb6b447719aadbc58f98b061c28b3
+                      user_id: 5
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+      description: |-
+        Maak een nieuwe comment aan.
+
+        Een comment is gelinkt aan een parent issue óf een parent comment, maar heeft altijd een gelinkte issue.
+      parameters:
+        - schema:
+            type: string
+            default: text/plain
+            example: application/json
+          in: header
+          name: Content-Type
+          description: ''
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+                issue:
+                  type: integer
+                parent_comment_id:
+                  type: integer
+                parent_issue_id:
+                  type: integer
+              required:
+                - body
+                - issue
+            examples:
+              Voorbeeld 1:
+                value:
+                  body: 'Daar ben ik het niet mee eens, ...'
+                  issue: 12
+                  parent_issue_id: 12
+              Voorbeeld 2:
+                value:
+                  body: 'Daar ben ik het niet mee eens, ...'
+                  issue: 12
+                  parent_comment_id: 1
+        description: 'POST data, in JSON formaat.'
+      tags:
+        - Comment
   '/user/{user_id}/':
     parameters:
       - schema:
@@ -392,6 +555,172 @@ paths:
           required: true
       tags:
         - User
+  /user/all/:
+    parameters:
+      - schema:
+          type: integer
+          example: 123
+        name: user_id
+        in: path
+        required: true
+    get:
+      summary: Get users
+      operationId: get-user-all
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        user_id:
+                          type: integer
+                        first_name:
+                          type: string
+                        last_name:
+                          type: string
+                        role:
+                          type: integer
+                          description: hoogste rol
+                      required:
+                        - user_id
+                        - first_name
+                        - last_name
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response:
+                      - user_id: 1
+                        first_name: u1first
+                        last_name: u1last
+                        role: 3
+                      - user_id: 2
+                        first_name: u2first
+                        last_name: u2last
+                        role: 1
+                      - user_id: 3
+                        first_name: een
+                        last_name: TA
+                        role: 2
+                      - user_id: 4
+                        first_name: jeffrey
+                        last_name: spaan
+                        role: 3
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+      description: |-
+        Haalt users op. Mogelijkheid tot zoeken op voornaam+achternaam.
+
+        Matcht gegeven zoekstring (case-independent) ergens in de voornaam+achternaam. `?search='as dek'` geeft bijvoorbeeld de user `Jonas Dekker`. Zoeken is niet verplicht.
+      parameters:
+        - schema:
+            type: string
+            example: ce527a508a0cf05f3f28f2e85d7c060bcbc064a5
+          in: query
+          name: access_token
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: zoek op voor+achternaam
+      tags:
+        - User
   '/user/{user_id}/issues/':
     parameters:
       - schema:
@@ -417,36 +746,36 @@ paths:
                     example: 0
                     default: 0
                   response:
-                    type: object
-                    required:
-                      - issues
-                    properties:
-                      issues:
-                        type: array
-                        items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        issue_id:
+                          type: integer
+                        course:
                           type: object
                           properties:
-                            issue_id:
-                              type: integer
-                            course_code:
+                            code:
                               type: string
-                            user_id:
-                              type: integer
-                            title:
+                            name:
                               type: string
-                            body:
-                              type: string
-                            status:
-                              type: integer
-                              description: '0:public, 1: removed, 2:resolved'
-                            date:
-                              type: string
-                            upvotes:
-                              type: integer
-                              description: aantal upvotes
-                            downvotes:
-                              type: integer
-                              description: aantal downvotes
+                        user_id:
+                          type: integer
+                        title:
+                          type: string
+                        body:
+                          type: string
+                        status:
+                          type: integer
+                          description: '0:public, 1: removed, 2:resolved'
+                        date:
+                          type: string
+                        upvotes:
+                          type: integer
+                          description: aantal upvotes
+                        downvotes:
+                          type: integer
+                          description: aantal downvotes
                 required:
                   - error
                   - response
@@ -455,25 +784,28 @@ paths:
                   value:
                     error: 0
                     response:
-                      issues:
-                        - issue_id: 1
-                          course_code: course1
-                          user_id: 1
-                          title: Issue1
-                          body: body1
-                          status: 0
-                          date: '2020-06-04T20:59:22.859Z'
-                          upvotes: 1
-                          downvotes: 1
-                        - issue_id: 2
-                          course_code: course1
-                          user_id: 2
-                          title: Issue2
-                          body: body2
-                          status: 2
-                          date: '2021-06-04T20:59:22.859Z'
-                          upvotes: 2
-                          downvotes: 1
+                      - issue_id: 1
+                        course:
+                          code: course1
+                          name: Mijn course naam
+                        user_id: 1
+                        title: Issue1
+                        body: body1
+                        status: 0
+                        date: '2020-06-04T20:59:22.859Z'
+                        upvotes: 1
+                        downvotes: 1
+                      - issue_id: 2
+                        course:
+                          code: course1
+                          name: Mijn course naam
+                        user_id: 2
+                        title: Issue2
+                        body: body2
+                        status: 2
+                        date: '2021-06-04T20:59:22.859Z'
+                        upvotes: 2
+                        downvotes: 1
             application/xml:
               schema:
                 type: object
@@ -561,6 +893,422 @@ paths:
         Haalt alle issues van de user op. Toont ook verwijderde issues.
 
         Toegestaan door: de user zelf, OC.
+      parameters:
+        - schema:
+            type: string
+            example: ce527a508a0cf05f3f28f2e85d7c060bcbc064a5
+          in: query
+          name: access_token
+          required: true
+      tags:
+        - User
+  '/user/{user_id}/comments/':
+    parameters:
+      - schema:
+          type: integer
+          example: 123
+        name: user_id
+        in: path
+        required: true
+    get:
+      summary: Get user comments
+      operationId: get-user-comments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - id
+                        - body
+                        - date
+                        - issue
+                        - upvotes
+                        - downvotes
+                        - parent_issue
+                        - parent_comment
+                      properties:
+                        id:
+                          type: integer
+                          description: comment id
+                        body:
+                          type: string
+                        date:
+                          type: string
+                          description: datetime in UTC
+                        issue:
+                          type: integer
+                          description: issue id
+                        upvotes:
+                          type: integer
+                          description: aantal upvotes
+                        downvotes:
+                          type: integer
+                          description: aantal downvotes
+                        parent_issue:
+                          type:
+                            - integer
+                            - 'null'
+                          description: ''
+                        parent_comment:
+                          type:
+                            - integer
+                            - 'null'
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response:
+                      - id: 1
+                        body: Comment body
+                        date: '2020-06-18T10:14:30.229Z'
+                        issue: 1
+                        upvotes: 0
+                        downvotes: 0
+                        parent_issue: 1
+                        parent_comment: null
+                      - id: 2
+                        body: Comment body
+                        date: '2020-06-18T10:14:38.558Z'
+                        issue: 1
+                        upvotes: 0
+                        downvotes: 0
+                        parent_issue: 1
+                        parent_comment: null
+                      - id: 3
+                        body: Comment body
+                        date: '2020-06-18T10:14:39.617Z'
+                        issue: 1
+                        upvotes: 0
+                        downvotes: 0
+                        parent_issue: 1
+                        parent_comment: null
+                      - id: 4
+                        body: Comment body
+                        date: '2020-06-18T10:14:56.313Z'
+                        issue: 1
+                        upvotes: 0
+                        downvotes: 0
+                        parent_issue: null
+                        parent_comment: 2
+                      - id: 5
+                        body: Comment body
+                        date: '2020-06-18T10:15:02.815Z'
+                        issue: 1
+                        upvotes: 0
+                        downvotes: 0
+                        parent_issue: null
+                        parent_comment: 4
+                      - id: 6
+                        body: Comment body
+                        date: '2020-06-18T10:15:08.058Z'
+                        issue: 1
+                        upvotes: 0
+                        downvotes: 0
+                        parent_issue: null
+                        parent_comment: 3
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+      description: |-
+        Haalt alle comments van de user op.
+
+        Toegestaan door: de user zelf, docenten, OC.
+      parameters:
+        - schema:
+            type: string
+            example: ce527a508a0cf05f3f28f2e85d7c060bcbc064a5
+          in: query
+          name: access_token
+          required: true
+      tags:
+        - User
+  '/issue/{issue_id}/comments/':
+    parameters:
+      - schema:
+          type: integer
+          example: 123
+        name: issue_id
+        in: path
+        required: true
+    get:
+      summary: Get issue comments
+      operationId: get-issue-comments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: comment id
+                        body:
+                          type: string
+                        date:
+                          type: string
+                          description: datetime in UTC
+                        user:
+                          type: integer
+                          description: issue id
+                        upvotes:
+                          type: integer
+                          description: aantal upvotes
+                        downvotes:
+                          type: integer
+                          description: aantal downvotes
+                        comments:
+                          type: array
+                          description: zie voorbeeld
+                          items: {}
+                      required:
+                        - id
+                        - body
+                        - date
+                        - user
+                        - upvotes
+                        - downvotes
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response:
+                      - id: 1
+                        body: Comment body
+                        date: '2020-06-18T10:14:30.229Z'
+                        user: 1
+                        upvotes: 0
+                        downvotes: 0
+                        comments: []
+                      - id: 2
+                        body: Comment body
+                        date: '2020-06-18T10:14:38.558Z'
+                        user: 1
+                        upvotes: 0
+                        downvotes: 0
+                        comments:
+                          - id: 4
+                            body: Comment body
+                            date: '2020-06-18T10:14:56.313Z'
+                            user: 1
+                            upvotes: 0
+                            downvotes: 0
+                            comments:
+                              - id: 5
+                                body: Comment body
+                                date: '2020-06-18T10:15:02.815Z'
+                                user: 1
+                                upvotes: 0
+                                downvotes: 0
+                                comments: []
+                      - id: 3
+                        body: Comment body
+                        date: '2020-06-18T10:14:39.617Z'
+                        user: 1
+                        upvotes: 0
+                        downvotes: 0
+                        comments:
+                          - id: 6
+                            body: Comment body
+                            date: '2020-06-18T10:15:08.058Z'
+                            user: 1
+                            upvotes: 0
+                            downvotes: 0
+                            comments: []
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+      description: 'Haalt alle comments van een issue op, in een nested layout.'
       parameters:
         - schema:
             type: string
@@ -1728,6 +2476,551 @@ paths:
         in: path
         description: ''
         required: true
+  '/comment/{comment_id}/modify':
+    post:
+      summary: Modify comment
+      operationId: post-comment-modify
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
+                    type: 'null'
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response: null
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+      description: "Wijzig een comment. \n\nToegestaan door: de user zelf."
+      parameters:
+        - schema:
+            type: string
+            example: ce527a508a0cf05f3f28f2e85d7c060bcbc064a5
+          in: query
+          name: access_token
+          required: true
+        - schema:
+            type: string
+            example: application/json
+            default: text/plain
+          in: header
+          name: Content-Type
+          required: true
+      tags:
+        - Course
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+            examples:
+              Voorbeeld:
+                value:
+                  body: Nieuwe comment tekst.
+    parameters:
+      - schema:
+          type: integer
+          example: 123
+        name: comment_id
+        in: path
+        description: ''
+        required: true
+  '/comment/{comment_id}/vote/{vote_type}':
+    post:
+      summary: Vote on a comment
+      operationId: post-comment-vote
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
+                    type: 'null'
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response: null
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+      description: Up/downvote een comment.
+      parameters:
+        - schema:
+            type: string
+            example: ce527a508a0cf05f3f28f2e85d7c060bcbc064a5
+          in: query
+          name: access_token
+          required: true
+      tags:
+        - Course
+    parameters:
+      - schema:
+          type: integer
+          example: 123
+        name: comment_id
+        in: path
+        description: ''
+        required: true
+      - schema:
+          type: string
+          example: up
+        name: vote_type
+        in: path
+        required: true
+        description: up of down
+  '/issue/{issue_id}/vote/{vote_type}':
+    post:
+      summary: Vote on a issue
+      operationId: post-comment-vote
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
+                    type: 'null'
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response: null
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+      description: 'Up/downvote een issue. '
+      parameters:
+        - schema:
+            type: string
+            example: ce527a508a0cf05f3f28f2e85d7c060bcbc064a5
+          in: query
+          name: access_token
+          required: true
+      tags:
+        - Course
+    parameters:
+      - schema:
+          type: integer
+          example: 123
+        name: issue_id
+        in: path
+        description: ''
+        required: true
+      - schema:
+          type: string
+          example: up
+        name: vote_type
+        in: path
+        required: true
+        description: up of down
+  '/comment/{comment_id}/remove':
+    post:
+      summary: Remove comment
+      operationId: post-comment-remove
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
+                    type: 'null'
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response: null
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+      description: "Verwijder (hard) een comment. \n\nToegestaan door: de user zelf, docenten, OC."
+      parameters:
+        - schema:
+            type: string
+            example: ce527a508a0cf05f3f28f2e85d7c060bcbc064a5
+          in: query
+          name: access_token
+          required: true
+      tags:
+        - Course
+    parameters:
+      - schema:
+          type: integer
+          example: 123
+        name: comment_id
+        in: path
+        description: ''
+        required: true
   '/course/{code}/issues/':
     get:
       summary: Get course issues
@@ -1746,36 +3039,36 @@ paths:
                     example: 0
                     default: 0
                   response:
-                    type: object
-                    required:
-                      - issues
-                    properties:
-                      issues:
-                        type: array
-                        items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        issue_id:
+                          type: integer
+                        course:
                           type: object
                           properties:
-                            issue_id:
-                              type: integer
-                            course_code:
+                            code:
                               type: string
-                            user_id:
-                              type: integer
-                            title:
+                            name:
                               type: string
-                            body:
-                              type: string
-                            status:
-                              type: integer
-                              description: '0:public, 2:resolved'
-                            date:
-                              type: string
-                            upvotes:
-                              type: integer
-                              description: aantal upvotes
-                            downvotes:
-                              type: integer
-                              description: aantal downvotes
+                        user_id:
+                          type: integer
+                        title:
+                          type: string
+                        body:
+                          type: string
+                        status:
+                          type: integer
+                          description: '0:public, 2:resolved'
+                        date:
+                          type: string
+                        upvotes:
+                          type: integer
+                          description: aantal upvotes
+                        downvotes:
+                          type: integer
+                          description: aantal downvotes
                 required:
                   - error
                   - response
@@ -1784,25 +3077,28 @@ paths:
                   value:
                     error: 0
                     response:
-                      issues:
-                        - issue_id: 1
-                          course_code: course1
-                          user_id: 1
-                          title: Issue1
-                          body: body1
-                          status: 0
-                          date: '2020-06-04T20:59:22.859Z'
-                          upvotes: 1
-                          downvotes: 1
-                        - issue_id: 2
-                          course_code: course1
-                          user_id: 2
-                          title: Issue2
-                          body: body2
-                          status: 2
-                          date: '2021-06-04T20:59:22.859Z'
-                          upvotes: 2
-                          downvotes: 1
+                      - issue_id: 1
+                        course:
+                          code: course1
+                          name: Mijn course naam
+                        user_id: 1
+                        title: Issue1
+                        body: body1
+                        status: 0
+                        date: '2020-06-04T20:59:22.859Z'
+                        upvotes: 1
+                        downvotes: 1
+                      - issue_id: 2
+                        course:
+                          code: course1
+                          name: Mijn course naam
+                        user_id: 2
+                        title: Issue2
+                        body: body2
+                        status: 2
+                        date: '2021-06-04T20:59:22.859Z'
+                        upvotes: 2
+                        downvotes: 1
             application/xml:
               schema:
                 type: object
@@ -2165,6 +3461,7 @@ paths:
             example: application/json
           in: header
           name: Content-Type
+          required: true
       tags:
         - User
       requestBody:
@@ -2530,19 +3827,24 @@ paths:
                     type: object
                     required:
                       - issue_id
-                      - course_code
+                      - course
                       - user_id
                       - title
                       - body
                       - status
                       - date
-                      - upvoters
-                      - downvoters
+                      - upvotes
+                      - downvotes
                     properties:
                       issue_id:
                         type: integer
-                      course_code:
-                        type: string
+                      course:
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                          name:
+                            type: string
                       user_id:
                         type: integer
                       title:
@@ -2554,10 +3856,10 @@ paths:
                         description: '0:public, 2:resolved'
                       date:
                         type: string
-                      upvoters:
+                      upvotes:
                         type: integer
                         description: aantal upvotes
-                      downvoters:
+                      downvotes:
                         type: integer
                         description: aantal downvotes
                 required:
@@ -2569,7 +3871,9 @@ paths:
                     error: 0
                     response:
                       issue_id: 1
-                      course_code: course1
+                      course:
+                        code: course1
+                        name: Mijn course naam
                       user_id: 1
                       title: Issue1
                       body: body1
@@ -2604,6 +3908,127 @@ paths:
       parameters:
         - schema:
             type: string
+            example: ce527a508a0cf05f3f28f2e85d7c060bcbc064a5
+          in: query
+          name: access_token
+          required: true
+  '/comment/{comment_id}/':
+    parameters:
+      - schema:
+          type: integer
+          example: 123
+        name: comment_id
+        in: path
+        required: true
+    get:
+      summary: Get comment details
+      tags:
+        - Comment
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                  response:
+                    type: object
+                    required:
+                      - id
+                      - body
+                      - date
+                      - issue
+                      - upvotes
+                      - downvotes
+                      - parent_issue
+                      - parent_comment
+                    properties:
+                      id:
+                        type: integer
+                        description: comment id
+                      body:
+                        type: string
+                      date:
+                        type: string
+                        description: datetime in UTC
+                      issue:
+                        type: integer
+                        description: issue id
+                      upvotes:
+                        type: integer
+                        description: aantal upvotes
+                      downvotes:
+                        type: integer
+                        description: aantal downvotes
+                      parent_issue:
+                        type:
+                          - integer
+                          - 'null'
+                        description: ''
+                      parent_comment:
+                        type:
+                          - integer
+                          - 'null'
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld 1:
+                  value:
+                    error: 0
+                    response:
+                      id: 1
+                      body: course1
+                      date: '2020-06-04T20:59:22.859Z'
+                      issue: 1
+                      upvotes: 100
+                      downvotes: 100
+                      parent_issue: 1
+                      parent_comment: null
+                Voorbeeld 2:
+                  value:
+                    error: 0
+                    response:
+                      id: 1
+                      body: course1
+                      date: '2020-06-04T20:59:22.859Z'
+                      issue: 1
+                      upvotes: 100
+                      downvotes: 100
+                      parent_issue: null
+                      parent_comment: 14
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                required:
+                  - error
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                required:
+                  - error
+      operationId: get-comment
+      description: Haalt comment info op.
+      parameters:
+        - schema:
+            type: string
+            example: ce527a508a0cf05f3f28f2e85d7c060bcbc064a5
           in: query
           name: access_token
           required: true
