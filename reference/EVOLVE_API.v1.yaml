@@ -930,15 +930,6 @@ paths:
                     type: array
                     items:
                       type: object
-                      required:
-                        - id
-                        - body
-                        - date
-                        - issue
-                        - upvotes
-                        - downvotes
-                        - parent_issue
-                        - parent_comment
                       properties:
                         id:
                           type: integer
@@ -949,8 +940,13 @@ paths:
                           type: string
                           description: datetime in UTC
                         issue:
-                          type: integer
+                          type: object
                           description: issue id
+                          properties:
+                            id:
+                              type: integer
+                            title:
+                              type: string
                         upvotes:
                           type: integer
                           description: aantal upvotes
@@ -966,6 +962,15 @@ paths:
                           type:
                             - integer
                             - 'null'
+                      required:
+                        - id
+                        - body
+                        - date
+                        - issue
+                        - upvotes
+                        - downvotes
+                        - parent_issue
+                        - parent_comment
                 required:
                   - error
                   - response
