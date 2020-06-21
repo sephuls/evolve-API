@@ -902,6 +902,202 @@ paths:
           required: true
       tags:
         - User
+  /issue/duplicates/:
+    parameters: []
+    post:
+      summary: Get issue duplicates
+      operationId: post-issue-duplicates
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        issue_id:
+                          type: integer
+                        course:
+                          type: object
+                          properties:
+                            code:
+                              type: string
+                            name:
+                              type: string
+                        user_id:
+                          type: integer
+                        title:
+                          type: string
+                        body:
+                          type: string
+                        status:
+                          type: integer
+                          description: '0:public, 1: removed, 2:resolved'
+                        date:
+                          type: string
+                        upvotes:
+                          type: integer
+                          description: aantal upvotes
+                        downvotes:
+                          type: integer
+                          description: aantal downvotes
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response:
+                      - issue_id: 1
+                        course:
+                          code: course1
+                          name: Mijn course naam
+                        user_id: 1
+                        title: Issue1
+                        body: body1
+                        status: 0
+                        date: '2020-06-04T20:59:22.859Z'
+                        upvotes: 1
+                        downvotes: 1
+                      - issue_id: 2
+                        course:
+                          code: course1
+                          name: Mijn course naam
+                        user_id: 2
+                        title: Issue2
+                        body: body2
+                        status: 2
+                        date: '2021-06-04T20:59:22.859Z'
+                        upvotes: 2
+                        downvotes: 1
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+      description: |-
+        Haalt mogelijke duplicates van een issue op binnen de gegeven course. Momenteel alleen aan de hand van de title.
+
+        De optionele match_threshold parameter geeft de fractie van overeenkomende (key)woorden aan. Default: 0.2.
+      parameters:
+        - schema:
+            type: string
+            example: ce527a508a0cf05f3f28f2e85d7c060bcbc064a5
+          in: query
+          name: access_token
+          required: true
+        - schema:
+            minimum: 0
+            maximum: 1
+            type: string
+            example: '0.2'
+          in: query
+          name: match_threshold
+          description: ''
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                course_code:
+                  type: integer
+              required:
+                - title
+                - course_code
   '/user/{user_id}/comments/':
     parameters:
       - schema:
