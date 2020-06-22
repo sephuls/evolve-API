@@ -4370,6 +4370,7 @@ paths:
                       - vote
                       - parent_issue
                       - parent_comment
+                      - comments
                     properties:
                       id:
                         type: integer
@@ -4393,6 +4394,10 @@ paths:
                           - 'null'
                           - string
                         description: '"up"/"down"/null'
+                      comments:
+                        type: array
+                        description: nested subcomments
+                        items: {}
                       parent_issue:
                         type:
                           - integer
@@ -4410,28 +4415,54 @@ paths:
                   value:
                     error: 0
                     response:
-                      id: 1
-                      body: course1
-                      date: '2020-06-04T20:59:22.859Z'
+                      id: 2
+                      body: Comment body
+                      date: '2020-06-18T10:14:38.558Z'
                       issue: 1
-                      upvotes: 100
-                      downvotes: 100
-                      vote: down
+                      upvotes: 0
+                      downvotes: 0
+                      vote: null
+                      comments:
+                        - id: 4
+                          body: Comment body
+                          date: '2020-06-18T10:14:56.313Z'
+                          user: 1
+                          upvotes: 0
+                          downvotes: 0
+                          vote: null
+                          comments:
+                            - id: 5
+                              body: Comment body
+                              date: '2020-06-18T10:15:02.815Z'
+                              user: 1
+                              upvotes: 0
+                              downvotes: 0
+                              vote: null
+                              comments: []
                       parent_issue: 1
                       parent_comment: null
                 Voorbeeld 2:
                   value:
                     error: 0
                     response:
-                      id: 1
-                      body: course1
-                      date: '2020-06-04T20:59:22.859Z'
+                      id: 4
+                      body: Comment body
+                      date: '2020-06-18T10:14:56.313Z'
                       issue: 1
-                      upvotes: 100
-                      downvotes: 100
-                      vote: down
+                      upvotes: 0
+                      downvotes: 0
+                      vote: null
+                      comments:
+                        - id: 5
+                          body: Comment body
+                          date: '2020-06-18T10:15:02.815Z'
+                          user: 1
+                          upvotes: 0
+                          downvotes: 0
+                          vote: null
+                          comments: []
                       parent_issue: null
-                      parent_comment: 14
+                      parent_comment: 2
         '400':
           description: Bad Request
           content:
@@ -4455,7 +4486,7 @@ paths:
                 required:
                   - error
       operationId: get-comment
-      description: Haalt comment info op.
+      description: Haalt comment info op inclusief nested subcomments.
       parameters:
         - schema:
             type: string
