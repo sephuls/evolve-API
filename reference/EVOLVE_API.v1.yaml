@@ -902,6 +902,163 @@ paths:
           required: true
       tags:
         - User
+  '/user/{user_id}/courses/':
+    parameters:
+      - schema:
+          type: integer
+          example: 123
+        name: user_id
+        in: path
+        required: true
+    get:
+      summary: Get user courses
+      operationId: get-user-courses
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
+                    type: object
+                    properties:
+                      datanose_link:
+                        type: boolean
+                        description: datanose connectie status
+                      courses:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            code:
+                              type: string
+                            teachers:
+                              type: array
+                              description: "user id's"
+                              items:
+                                type: integer
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response:
+                      datanose_link: true
+                      courses:
+                        - name: Course1
+                          code: Course1code
+                        - name: Course2
+                          code: Course2code
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+      description: |-
+        Haalt alle courses van de user op. Wordt autmatisch geupdatet met courses uit Datanose. Nieuwe courses uit DataNose worden aangemaakt in de database (met name==code).
+        Slaat courses ook lokaal op zodat datanose koppeling niet vereist is.
+
+        course/new is dus niet meer noodzakelijk, course/modify wel.
+
+        Toegestaan door: de user zelf.
+      parameters:
+        - schema:
+            type: string
+            example: ce527a508a0cf05f3f28f2e85d7c060bcbc064a5
+          in: query
+          name: access_token
+          required: true
+      tags:
+        - User
   /issue/duplicates/:
     parameters: []
     post:
