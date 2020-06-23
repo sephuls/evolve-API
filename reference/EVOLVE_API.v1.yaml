@@ -3448,7 +3448,10 @@ paths:
                 Voorbeeld:
                   value:
                     error: 1
-      description: "Verwijder (hard) een comment. \n\nToegestaan door: de user zelf, docenten, OC."
+      description: |-
+        Verwijder een comment. In de praktijk wordt alleen de user en body verwijderd, de comment blijft bestaan.
+
+        Toegestaan door: de user zelf, docenten, OC.
       parameters:
         - schema:
             type: string
