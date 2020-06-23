@@ -274,8 +274,7 @@ paths:
                   value:
                     error: 0
                     response:
-                      access_token: c7a19cf986eeb6b447719aadbc58f98b061c28b3
-                      user_id: 5
+                      comment_id: 1
             application/xml:
               schema:
                 type: object
