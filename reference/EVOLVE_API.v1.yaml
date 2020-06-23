@@ -1547,7 +1547,9 @@ paths:
                           type: string
                           description: datetime in UTC
                         user:
-                          type: integer
+                          type:
+                            - integer
+                            - 'null'
                           description: issue id
                         issue:
                           type: integer
@@ -2135,7 +2137,7 @@ paths:
       description: |-
         Verwijdert (soft) een issue.
 
-        Toegestaan door: docenten, OC.
+        Toegestaan door: de user zelf
       parameters:
         - schema:
             type: string
@@ -2265,7 +2267,7 @@ paths:
       description: |-
         Resolved een issue.
 
-        Toegestaan door: TA's, docenten, OC.
+        Toegestaan door: de user zelf
       parameters:
         - schema:
             type: string
