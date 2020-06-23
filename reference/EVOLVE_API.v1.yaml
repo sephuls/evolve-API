@@ -1549,6 +1549,8 @@ paths:
                         user:
                           type: integer
                           description: issue id
+                        issue:
+                          type: integer
                         upvotes:
                           type: integer
                           description: aantal upvotes
@@ -1571,8 +1573,8 @@ paths:
                         - user
                         - upvotes
                         - downvotes
-                        - comments
                         - vote
+                        - comments
                 required:
                   - error
                   - response
@@ -1585,6 +1587,7 @@ paths:
                         body: Comment body
                         date: '2020-06-18T10:14:30.229Z'
                         user: 1
+                        issue: 1
                         upvotes: 0
                         downvotes: 0
                         vote: null
@@ -1593,6 +1596,7 @@ paths:
                         body: Comment body
                         date: '2020-06-18T10:14:38.558Z'
                         user: 1
+                        issue: 1
                         upvotes: 0
                         downvotes: 0
                         vote: null
@@ -1601,6 +1605,7 @@ paths:
                             body: Comment body
                             date: '2020-06-18T10:14:56.313Z'
                             user: 1
+                            issue: 1
                             upvotes: 0
                             downvotes: 0
                             vote: null
@@ -1609,6 +1614,7 @@ paths:
                                 body: Comment body
                                 date: '2020-06-18T10:15:02.815Z'
                                 user: 1
+                                issue: 1
                                 upvotes: 0
                                 downvotes: 0
                                 vote: null
@@ -1617,6 +1623,7 @@ paths:
                         body: Comment body
                         date: '2020-06-18T10:14:39.617Z'
                         user: 1
+                        issue: 1
                         upvotes: 0
                         downvotes: 0
                         vote: null
@@ -1625,6 +1632,7 @@ paths:
                             body: Comment body
                             date: '2020-06-18T10:15:08.058Z'
                             user: 1
+                            issue: 1
                             upvotes: 0
                             downvotes: 0
                             vote: null
@@ -4364,13 +4372,14 @@ paths:
                       - id
                       - body
                       - date
+                      - user
                       - issue
                       - upvotes
                       - downvotes
                       - vote
+                      - comments
                       - parent_issue
                       - parent_comment
-                      - comments
                     properties:
                       id:
                         type: integer
@@ -4380,6 +4389,8 @@ paths:
                       date:
                         type: string
                         description: datetime in UTC
+                      user:
+                        type: integer
                       issue:
                         type: integer
                         description: issue id
@@ -4418,6 +4429,7 @@ paths:
                       id: 2
                       body: Comment body
                       date: '2020-06-18T10:14:38.558Z'
+                      user: 1
                       issue: 1
                       upvotes: 0
                       downvotes: 0
@@ -4427,6 +4439,7 @@ paths:
                           body: Comment body
                           date: '2020-06-18T10:14:56.313Z'
                           user: 1
+                          issue: 1
                           upvotes: 0
                           downvotes: 0
                           vote: null
@@ -4435,6 +4448,7 @@ paths:
                               body: Comment body
                               date: '2020-06-18T10:15:02.815Z'
                               user: 1
+                              issue: 1
                               upvotes: 0
                               downvotes: 0
                               vote: null
@@ -4448,6 +4462,7 @@ paths:
                       id: 4
                       body: Comment body
                       date: '2020-06-18T10:14:56.313Z'
+                      user: 1
                       issue: 1
                       upvotes: 0
                       downvotes: 0
@@ -4457,6 +4472,7 @@ paths:
                           body: Comment body
                           date: '2020-06-18T10:15:02.815Z'
                           user: 1
+                          issue: 1
                           upvotes: 0
                           downvotes: 0
                           vote: null
