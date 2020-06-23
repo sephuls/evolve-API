@@ -23,21 +23,20 @@ tags: [Implementatie details]
 | `GET`    | /issue/{issue_id}         | Get issue details |   ✓   |  ✓  |
 | `GET`    | /issue/{issue_id}/comments  | Get issue comments |   ✓   |  ✓  |
 | `POST`   | /issue/new                | Create issue      |   ✓   |  ✓  |
+| `POST`   | /issue/duplicates         | Get issue duplicates      |   ✓   |  ✓  |
 | `POST`   | /issue/{issue_id}/modify  | Modify issue      |   ✓   |  ✓  |
 | `POST`   | /issue/{issue_id}/vote{vote_type}    | Up/downvote  |   ✓   |  ✓  |
 | `POST`   | /issue/{issue_id}/resolve | Resolve issue     |   ✓   |  ✓  |
 | `POST`   | /issue/{issue_id}/remove  | Remove issue      |   ✓   |  ✓  |
 
-NOTE: momenteel is er nog geen ondersteuning voor labels.
-
 <!-- title: User api-calls -->
 
 | Method   | URL                    | Name             | Ready | Documented |
 | -------- | ---------------------- | ---------------- | :---: | :-: |
-| `GET`    | /user/all              | Get users      |   ✓   |     |
+| `GET`    | /user/all              | Get users      |   ✓   |   ✓  |
 | `GET`    | /user/{user_id}        | Get user details |   ✓   |  ✓  |
 | `GET`    | /user/{user_id}/issues | Get user issues  |   ✓   |  ✓  |
-| `GET`    | /user/{user_id}/courses | Get user courses  |      |    |
+| `GET`    | /user/{user_id}/courses | Get user courses  |  ✓   |  ✓ |
 | `GET`    | /user/{user_id}/comments | Get user comments  |   ✓   |  ✓   |
 | `POST`   | /user/new              | Create user      |   ✓   |  ✓  |
 | `POST`   | /user/login            | Login            |   ✓   |  ✓  |
