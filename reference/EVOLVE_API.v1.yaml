@@ -2454,7 +2454,6 @@ paths:
                 - course_code
                 - title
                 - body
-                - labels
             examples:
               Voorbeeld:
                 value:
