@@ -791,6 +791,10 @@ paths:
                             - string
                             - 'null'
                           description: '"up"/"down"/null'
+                        labels:
+                          type: array
+                          items:
+                            type: string
                 required:
                   - error
                   - response
@@ -811,6 +815,9 @@ paths:
                         upvotes: 1
                         downvotes: 1
                         vote: up
+                        labels:
+                          - label1
+                          - label2
                       - issue_id: 2
                         course:
                           code: course1
@@ -823,6 +830,9 @@ paths:
                         upvotes: 2
                         downvotes: 1
                         vote: down
+                        labels:
+                          - label1
+                          - label2
             application/xml:
               schema:
                 type: object
@@ -1125,6 +1135,14 @@ paths:
                         downvotes:
                           type: integer
                           description: aantal downvotes
+                        vote:
+                          type:
+                            - string
+                            - 'null'
+                        labels:
+                          type: array
+                          items:
+                            type: string
                 required:
                   - error
                   - response
@@ -1144,6 +1162,10 @@ paths:
                         date: '2020-06-04T20:59:22.859Z'
                         upvotes: 1
                         downvotes: 1
+                        vote: down
+                        labels:
+                          - mijncourselabel
+                          - anderecourselabel
                       - issue_id: 2
                         course:
                           code: course1
@@ -1155,6 +1177,8 @@ paths:
                         date: '2021-06-04T20:59:22.859Z'
                         upvotes: 2
                         downvotes: 1
+                        vote: up
+                        labels: []
             application/xml:
               schema:
                 type: object
@@ -2422,10 +2446,15 @@ paths:
                 body:
                   type: string
                   example: Stap 1. maak een wiki
+                labels:
+                  type: array
+                  items:
+                    type: string
               required:
                 - course_code
                 - title
                 - body
+                - labels
             examples:
               Voorbeeld:
                 value:
@@ -2443,6 +2472,9 @@ paths:
                     - '░░░░toucan░░░░░░▀▄░░░▐█████████████▄ '
                     - '░░░░░░has░░░░░░░░▀▄▄███████████████ '
                     - '░░░░░arrived░░░░░░░░░░░░█▀██████░░ '
+                  labels:
+                    - label1
+                    - label2
         description: 'POST data, in JSON formaat.'
       tags:
         - Issue
@@ -3487,6 +3519,10 @@ paths:
                             - string
                             - 'null'
                           description: '"up"/"down"/null'
+                        labels:
+                          type: array
+                          items:
+                            type: string
                 required:
                   - error
                   - response
@@ -3507,6 +3543,8 @@ paths:
                         upvotes: 1
                         downvotes: 1
                         vote: null
+                        labels:
+                          - mijnlabel
                       - issue_id: 2
                         course:
                           code: course1
@@ -3519,6 +3557,7 @@ paths:
                         upvotes: 2
                         downvotes: 1
                         vote: up
+                        labels: []
             application/xml:
               schema:
                 type: object
@@ -4261,6 +4300,7 @@ paths:
                       - upvotes
                       - downvotes
                       - vote
+                      - labels
                     properties:
                       issue_id:
                         type: integer
@@ -4293,6 +4333,10 @@ paths:
                           - string
                           - 'null'
                         description: '"up"/"down"/null'
+                      labels:
+                        type: array
+                        items:
+                          type: string
                 required:
                   - error
                   - response
@@ -4313,6 +4357,9 @@ paths:
                       upvotes: 1
                       downvotes: 1
                       vote: up
+                      labels:
+                        - label1
+                        - label2
         '400':
           description: Bad Request
           content:
