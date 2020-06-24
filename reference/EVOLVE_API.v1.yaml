@@ -71,11 +71,175 @@ paths:
                     example: 0
                     default: 0
                   response:
+                    type: 'null'
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response: null
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+      description: Maak een nieuwe user aan. Stuurt een verificatie-e-mail naar het gegeven e-mailadres.
+      parameters:
+        - schema:
+            type: string
+            default: text/plain
+            example: application/json
+          in: header
+          name: Content-Type
+          description: ''
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                  example: 12345678@student.uva.nl
+                  description: e-mail veld
+                password:
+                  type: string
+                  example: mijnpasswordinplaintext
+                  maxLength: 254
+                  minLength: 9
+                  description: plaintext wachtwoord
+                first_name:
+                  type: string
+                  example: Isabel
+                  description: voornaam
+                last_name:
+                  type: string
+                  example: de Jong
+                  description: achternaam
+                uva_id:
+                  type: integer
+                  description: uva id
+                  example: 12345678
+              required:
+                - email
+                - password
+                - first_name
+                - last_name
+                - uva_id
+            examples:
+              Voorbeeld:
+                value:
+                  email: 12345678@student.uva.nl
+                  password: mijnpasswordinplaintext
+                  first_name: Isabel
+                  last_name: de Jong
+                  uva_id: 12345678
+        description: 'POST data, in JSON formaat.'
+      tags:
+        - User
+  /user/verify/:
+    parameters: []
+    post:
+      summary: Verify email
+      operationId: post-user-verify
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
                     type: object
-                    required:
-                      - access_token
-                      - user_id
-                      - role
                     properties:
                       access_token:
                         type: string
@@ -96,7 +260,141 @@ paths:
                     response:
                       access_token: c7a19cf986eeb6b447719aadbc58f98b061c28b3
                       user_id: 5
-                      role: 1
+                      role: 3
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+      description: Verifieer een gebruiker e-mail met een verificatietoken.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: token
+          required: true
+          description: verificatie token
+      tags:
+        - User
+  /user/reset/:
+    parameters: []
+    post:
+      summary: Reset password
+      operationId: post-user-reset
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
+                    type: object
+                    properties:
+                      access_token:
+                        type: string
+                        example: c7a19cf986eeb6b447719aadbc58f98b061c28b3
+                      user_id:
+                        type: integer
+                        example: 5
+                      role:
+                        type: integer
+                        description: hoogste user rol
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response:
+                      access_token: c7a19cf986eeb6b447719aadbc58f98b061c28b3
+                      user_id: 5
+                      role: 3
             application/xml:
               schema:
                 type: object
@@ -181,63 +479,16 @@ paths:
                   value:
                     error: 1
       description: |-
-        Maak een nieuwe user aan. Returnt een `access_token` en een `user_id`.
+        Stelt een nieuw wachtwoord in met behulp van een verificatietoken (die in een mail via `/user/{user_id}/forgot_password` gestuurd is).
 
-        Verificatie is nog niet geïmplementeerd.
+        Verifieerd ook de user.
       parameters:
         - schema:
             type: string
-            default: text/plain
-            example: application/json
-          in: header
-          name: Content-Type
-          description: ''
+          in: query
+          name: token
           required: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  format: email
-                  maxLength: 254
-                  example: 12345678@student.uva.nl
-                  description: e-mail veld
-                password:
-                  type: string
-                  example: mijnpasswordinplaintext
-                  maxLength: 254
-                  minLength: 9
-                  description: plaintext wachtwoord
-                first_name:
-                  type: string
-                  example: Isabel
-                  description: voornaam
-                last_name:
-                  type: string
-                  example: de Jong
-                  description: achternaam
-                uva_id:
-                  type: integer
-                  description: uva id
-                  example: 12345678
-              required:
-                - email
-                - password
-                - first_name
-                - last_name
-                - uva_id
-            examples:
-              Voorbeeld:
-                value:
-                  email: 12345678@student.uva.nl
-                  password: mijnpasswordinplaintext
-                  first_name: Isabel
-                  last_name: de Jong
-                  uva_id: 12345678
-        description: 'POST data, in JSON formaat.'
+          description: verificatie token
       tags:
         - User
   /comment/new/:
@@ -3789,6 +4040,133 @@ paths:
           required: true
       tags:
         - User
+  '/user/{user_id}/forgot_password/':
+    parameters:
+      - schema:
+          type: integer
+          example: 123
+        name: user_id
+        in: path
+        required: true
+    post:
+      summary: Forgot password
+      operationId: post-user-forgotpassword
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: error code is altijd 0 op succes
+                    example: 0
+                    default: 0
+                  response:
+                    type: 'null'
+                required:
+                  - error
+                  - response
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 0
+                    response: null
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 5
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 5
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    minimum: 1
+                    exclusiveMinimum: true
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Is always 1 on status=500
+                    minimum: 1
+                    exclusiveMinimum: true
+                    default: 0
+                    example: 1
+                required:
+                  - error
+              examples:
+                Voorbeeld:
+                  value:
+                    error: 1
+      description: Stuurt een wachtwoord-vergeten e-mail naar de ingelogde gebruiker.
+      parameters:
+        - schema:
+            type: string
+            example: ce527a508a0cf05f3f28f2e85d7c060bcbc064a5
+          in: query
+          name: access_token
+          required: true
+      tags:
+        - User
   '/user/{user_id}/modify/':
     parameters:
       - schema:
@@ -4224,11 +4602,7 @@ paths:
                 Voorbeeld:
                   value:
                     error: 1
-      description: |-
-        Authenticeert een gebruiker. Returnt een `access_token` en een `user_id`.
-
-
-        Geldigheid van deze token is standaard 180 minuten.
+      description: "Authenticeert een gebruiker. \nDe user moet (email-)verified zijn.\n\nGeldigheid van deze token is standaard 180 minuten."
       parameters:
         - schema:
             type: string
