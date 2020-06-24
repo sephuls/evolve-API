@@ -1821,10 +1821,18 @@ paths:
                           type: string
                           description: datetime in UTC
                         user:
-                          type:
-                            - integer
-                            - 'null'
-                          description: issue id
+                          required:
+                            - id
+                            - first_name
+                            - last_name
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            first_name:
+                              type: string
+                            last_name:
+                              type: string
                         issue:
                           type: integer
                         upvotes:
@@ -1847,6 +1855,7 @@ paths:
                         - body
                         - date
                         - user
+                        - issue
                         - upvotes
                         - downvotes
                         - vote
@@ -1862,7 +1871,10 @@ paths:
                       - id: 1
                         body: Comment body
                         date: '2020-06-18T10:14:30.229Z'
-                        user: 1
+                        user:
+                          id: 1
+                          first_name: voornaam
+                          last_name: achternaam
                         issue: 1
                         upvotes: 0
                         downvotes: 0
@@ -1871,7 +1883,10 @@ paths:
                       - id: 2
                         body: Comment body
                         date: '2020-06-18T10:14:38.558Z'
-                        user: 1
+                        user:
+                          id: 1
+                          first_name: voornaam
+                          last_name: achternaam
                         issue: 1
                         upvotes: 0
                         downvotes: 0
@@ -1880,7 +1895,10 @@ paths:
                           - id: 4
                             body: Comment body
                             date: '2020-06-18T10:14:56.313Z'
-                            user: 1
+                            user:
+                              id: 1
+                              first_name: voornaam
+                              last_name: achternaam
                             issue: 1
                             upvotes: 0
                             downvotes: 0
@@ -1889,7 +1907,10 @@ paths:
                               - id: 5
                                 body: Comment body
                                 date: '2020-06-18T10:15:02.815Z'
-                                user: 1
+                                user:
+                                  id: 1
+                                  first_name: voornaam
+                                  last_name: achternaam
                                 issue: 1
                                 upvotes: 0
                                 downvotes: 0
@@ -1898,7 +1919,10 @@ paths:
                       - id: 3
                         body: Comment body
                         date: '2020-06-18T10:14:39.617Z'
-                        user: 1
+                        user:
+                          id: 1
+                          first_name: voornaam
+                          last_name: achternaam
                         issue: 1
                         upvotes: 0
                         downvotes: 0
@@ -1907,7 +1931,10 @@ paths:
                           - id: 6
                             body: Comment body
                             date: '2020-06-18T10:15:08.058Z'
-                            user: 1
+                            user:
+                              id: 1
+                              first_name: voornaam
+                              last_name: achternaam
                             issue: 1
                             upvotes: 0
                             downvotes: 0
@@ -4815,7 +4842,18 @@ paths:
                         type: string
                         description: datetime in UTC
                       user:
-                        type: integer
+                        type: object
+                        required:
+                          - id
+                          - first_name
+                          - last_name
+                        properties:
+                          id:
+                            type: integer
+                          first_name:
+                            type: string
+                          last_name:
+                            type: string
                       issue:
                         type: integer
                         description: issue id
@@ -4854,7 +4892,10 @@ paths:
                       id: 2
                       body: Comment body
                       date: '2020-06-18T10:14:38.558Z'
-                      user: 1
+                      user:
+                        id: 1
+                        first_name: voornaam
+                        last_name: achternaam
                       issue: 1
                       upvotes: 0
                       downvotes: 0
@@ -4863,7 +4904,10 @@ paths:
                         - id: 4
                           body: Comment body
                           date: '2020-06-18T10:14:56.313Z'
-                          user: 1
+                          user:
+                            id: 1
+                            first_name: voornaam
+                            last_name: achternaam
                           issue: 1
                           upvotes: 0
                           downvotes: 0
@@ -4872,7 +4916,10 @@ paths:
                             - id: 5
                               body: Comment body
                               date: '2020-06-18T10:15:02.815Z'
-                              user: 1
+                              user:
+                                id: 1
+                                first_name: voornaam
+                                last_name: achternaam
                               issue: 1
                               upvotes: 0
                               downvotes: 0
@@ -4887,7 +4934,10 @@ paths:
                       id: 4
                       body: Comment body
                       date: '2020-06-18T10:14:56.313Z'
-                      user: 1
+                      user:
+                        id: 1
+                        first_name: voornaam
+                        last_name: achternaam
                       issue: 1
                       upvotes: 0
                       downvotes: 0
@@ -4896,7 +4946,10 @@ paths:
                         - id: 5
                           body: Comment body
                           date: '2020-06-18T10:15:02.815Z'
-                          user: 1
+                          user:
+                            id: 1
+                            first_name: voornaam
+                            last_name: achternaam
                           issue: 1
                           upvotes: 0
                           downvotes: 0
