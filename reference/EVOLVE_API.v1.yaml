@@ -2331,7 +2331,8 @@ paths:
                 Voorbeeld:
                   value:
                     error: 0
-                    response: null
+                    response:
+                      issue_id: 1
             application/xml:
               schema:
                 type: object
