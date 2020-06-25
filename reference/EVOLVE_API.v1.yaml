@@ -832,14 +832,8 @@ paths:
           required: true
       tags:
         - User
-  /user/all/:
-    parameters:
-      - schema:
-          type: integer
-          example: 123
-        name: user_id
-        in: path
-        required: true
+  /user/all:
+    parameters: []
     get:
       summary: Get users
       operationId: get-user-all
