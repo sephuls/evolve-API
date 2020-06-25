@@ -40,9 +40,10 @@ tags: [Implementatie details]
 | `GET`    | /user/{user_id}/comments | Get user comments  |   ✓   |  ✓   |
 | `POST`   | /user/new              | Create user      |   ✓   |  ✓  |
 | `POST`   | /user/login            | Login            |   ✓   |  ✓  |
-| `POST`   | /user/forgot_password  | Forgot password  |       |     |
+| `POST`   | /user/reset            | Reset password            |   ✓   |  ✓  |
+| `POST`   | /user/forgot_password  | Forgot password  |   ✓   |  ✓  |
 | `POST`   | /user/{user_id}/modify | Modify user      |   ✓   |  ✓  |
-| `POST`   | /user/{user_id}/verify | Verify user      |       |     |
+| `POST`   | /user/verify | Verify user      |   ✓   |  ✓  |
 | `POST`   | /user/{user_id}/promote | Promote user    |   ✓   |  ✓  |
 | `POST`   | /user/{user_id}/remove | Remove user      |   ✓   |  ✓  |
 

@@ -479,7 +479,7 @@ paths:
                   value:
                     error: 1
       description: |-
-        Stelt een nieuw wachtwoord in met behulp van een verificatietoken (die in een mail via `/user/{user_id}/forgot_password` gestuurd is).
+        Stelt een nieuw wachtwoord in met behulp van een verificatietoken (die in een mail via `/user/forgot_password` gestuurd is).
 
         Verifieerd ook de user.
       parameters:
@@ -491,6 +491,16 @@ paths:
           description: verificatie token
       tags:
         - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+              required:
+                - password
   /comment/new/:
     parameters: []
     post:
@@ -4067,14 +4077,8 @@ paths:
           required: true
       tags:
         - User
-  '/user/{user_id}/forgot_password/':
-    parameters:
-      - schema:
-          type: integer
-          example: 123
-        name: user_id
-        in: path
-        required: true
+  /user/forgot_password/:
+    parameters: []
     post:
       summary: Forgot password
       operationId: post-user-forgotpassword
@@ -4184,16 +4188,20 @@ paths:
                 Voorbeeld:
                   value:
                     error: 1
-      description: Stuurt een wachtwoord-vergeten e-mail naar de ingelogde gebruiker.
-      parameters:
-        - schema:
-            type: string
-            example: ce527a508a0cf05f3f28f2e85d7c060bcbc064a5
-          in: query
-          name: access_token
-          required: true
+      description: Stuurt een wachtwoord-vergeten e-mail naar de (user van de) gegeven e-mail.
+      parameters: []
       tags:
         - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+              required:
+                - email
   '/user/{user_id}/modify/':
     parameters:
       - schema:
@@ -4497,6 +4505,8 @@ paths:
               properties:
                 promotion:
                   type: integer
+              required:
+                - promotion
             examples:
               Voorbeeld:
                 value:
