@@ -169,8 +169,7 @@ paths:
       parameters:
         - schema:
             type: string
-            default: text/plain
-            example: application/json
+            default: application/json
           in: header
           name: Content-Type
           description: ''
@@ -491,6 +490,12 @@ paths:
           name: token
           required: true
           description: verificatie token
+        - schema:
+            type: string
+            default: application/json
+          in: header
+          name: Content-Type
+          required: true
       tags:
         - User
       requestBody:
@@ -628,8 +633,7 @@ paths:
       parameters:
         - schema:
             type: string
-            default: text/plain
-            example: application/json
+            default: application/json
           in: header
           name: Content-Type
           description: ''
@@ -2305,8 +2309,7 @@ paths:
           required: true
         - schema:
             type: string
-            default: text/plain
-            example: application/json
+            default: application/json
           in: header
           name: Content-Type
           required: true
@@ -2716,8 +2719,7 @@ paths:
           required: true
         - schema:
             type: string
-            default: text/plain
-            example: application/json
+            default: application/json
           in: header
           name: Content-Type
           required: true
@@ -3166,8 +3168,7 @@ paths:
           required: true
         - schema:
             type: string
-            example: application/json
-            default: text/plain
+            default: application/json
           in: header
           name: Content-Type
       tags:
@@ -3331,8 +3332,7 @@ paths:
           required: true
         - schema:
             type: string
-            example: application/json
-            default: text/plain
+            default: application/json
           in: header
           name: Content-Type
           required: true
@@ -4334,8 +4334,7 @@ paths:
           required: true
         - schema:
             type: string
-            default: text/plain
-            example: application/json
+            default: application/json
           in: header
           name: Content-Type
           required: true
@@ -4493,8 +4492,7 @@ paths:
           required: true
         - schema:
             type: string
-            default: text/plain
-            example: application/json
+            default: application/json
           in: header
           name: Content-Type
       tags:
@@ -4645,8 +4643,7 @@ paths:
       parameters:
         - schema:
             type: string
-            default: text/plain
-            example: application/json
+            default: application/json
           in: header
           name: Content-Type
           description: ''
