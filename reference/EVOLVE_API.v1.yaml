@@ -47,6 +47,8 @@ info:
     > ```
   contact: {}
 servers:
+  - description: Productie
+    url: 'https://api.get-evolve.nl/api/'
   - url: 'http://35.156.237.48:8000/api/'
     description: Testserver
   - url: 'http://localhost:8000/api'
