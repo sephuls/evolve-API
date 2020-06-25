@@ -45,3 +45,6 @@ Niet definitief, wordt uitgebreid met behoud van eerdere errorcodes.
 | 14   | Issue was already resolved |
 | 15   | Self promotion not allowed |
 | 16   | Use other call |
+| 17   | Unverified |
+| 18   | Invalid uva id (eleven check failed) |
+
